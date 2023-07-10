@@ -4,3 +4,7 @@ module "oidc" {
   user_name       = var.user_name
   repository_name = var.repository_name
 }
+
+module "s3" {
+  source = "../modules/s3"
+}
