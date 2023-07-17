@@ -1,4 +1,4 @@
-name: terraform plan
+name: prepare plan
 
 on:
   push:
@@ -11,8 +11,8 @@ on:
       - hotfix/*
 
 permissions:
-  id-token: write # use aws-credentials
-  contents: read # use actions/checkout
+  id-token: write
+  contents: read
 
 jobs:
   terraform_plan:
@@ -60,10 +60,3 @@ jobs:
           -var="repository_name=${{ secrets.REPOSITORY_NAME }}" \
           | tee plan_output.txt
         working-directory: ./prepare
-
-      - name: Terraform Plan cmt
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false plan_output.txt
-        working-directory: ./prepare
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-
