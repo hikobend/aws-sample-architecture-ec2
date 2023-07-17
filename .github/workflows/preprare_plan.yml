@@ -53,12 +53,14 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan \
-            -no-color
+          terraform plan -no-color \
+          -var="account_id=${{ secrets.AWS_ACCOUNT }}" \
+          -var="user_name=${{ secrets.USER_NAME }}" \
+          -var="repository_name=${{ secrets.REPOSITORY_NAME }}" \
         working-directory: ./prepare
 
-      - name: Terraform Plan cmt
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false
-        working-directory: ./prepare
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      # - name: Terraform Plan cmt
+      #   run: tfcmt plan -patch -- terraform plan -no-color -input=false
+      #   working-directory: ./prepare
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.TOKEN }}
