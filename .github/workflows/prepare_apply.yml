@@ -1,21 +1,14 @@
 name: prepare plan
 
 on:
-  push:
-    branches:
-      - feature/*
-      - hotfix/*
-  pull_request:
-    branches:
-      - feature/*
-      - hotfix/*
+  workflow_dispatch:
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  terraform_plan:
+  terraform_apply:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,6 +38,16 @@ jobs:
       - name: Terraform Plan
         run: |
           terraform plan -no-color \
+          -var="account_id=${{ secrets.AWS_ACCOUNT }}" \
+          -var="user_name=${{ secrets.USER_NAME }}" \
+          -var="repository_name=${{ secrets.REPOSITORY_NAME }}"
+        working-directory: ./prepare
+
+      - name: Terraform Apply
+        run: |
+          terraform apply \
+          -auto-approve \
+          -no-color \
           -var="account_id=${{ secrets.AWS_ACCOUNT }}" \
           -var="user_name=${{ secrets.USER_NAME }}" \
           -var="repository_name=${{ secrets.REPOSITORY_NAME }}"
