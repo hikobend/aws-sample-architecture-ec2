@@ -1,7 +1,14 @@
 name: terraform plan
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feature/*
+      - hotfix/*
+  pull_request:
+    branches:
+      - feature/*
+      - hotfix/*
 
 permissions:
   id-token: write # use aws-credentials
