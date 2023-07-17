@@ -1,3 +1,23 @@
+## ディレクトリ構成
+```console
+.
+├── ./modules # AWSのリソースを作成する
+│   ├── ./modules/oidc # OIDCを作成
+│   │   ├── ./modules/oidc/main.tf
+│   │   ├── ./modules/oidc/outputs.tf
+│   │   └── ./modules/oidc/variables.tf
+│   └── ./modules/s3　＃ S3バケットを作成
+│       ├── ./modules/s3/main.tf
+│       ├── ./modules/s3/outputs.tf
+│       └── ./modules/s3/variables.tf
+├── ./prepare # 共通のAWSリソースを作成
+│   ├── ./prepare/backend.tf
+│   ├── ./prepare/main.tf
+│   ├── ./prepare/provider.tf
+│   └── ./prepare/variables.tf
+└── ./readme.md
+```
+
 ## 実装方法
 - state管理は、ベストプラクティスよりDynamoDBとS3で管理 StateLockをかけるため
 - CIツールには、tfcmt・tfsec・tflint・Plan・Applyを作成
