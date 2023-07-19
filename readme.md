@@ -1,21 +1,26 @@
 ## ディレクトリ構成
 ```console
 .
-├── ./modules # AWSのリソースを作成する
-│   ├── ./modules/oidc # OIDCを作成
-│   │   ├── ./modules/oidc/main.tf
-│   │   ├── ./modules/oidc/outputs.tf
-│   │   └── ./modules/oidc/variables.tf
-│   └── ./modules/s3　＃ S3バケットを作成
-│       ├── ./modules/s3/main.tf
-│       ├── ./modules/s3/outputs.tf
-│       └── ./modules/s3/variables.tf
-├── ./prepare # 共通のAWSリソースを作成
-│   ├── ./prepare/backend.tf
-│   ├── ./prepare/main.tf
-│   ├── ./prepare/provider.tf
-│   └── ./prepare/variables.tf
-└── ./readme.md
+├── env # 環境
+│   └── dev # 開発環境
+│       ├── main.tf # devで使用するAWSのリソースを構築
+│       ├── provider.tf # terraformの設定
+│       └── variables.tf # dev環境で使用するvariable一覧
+├── modules # 呼び出すリソースを作成
+│   ├── oidc # OIDC周りのリソース
+│   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # OIDCで外部から呼び出す時に使用
+│   │   └── variables.tf # OIDCディレクトリ内で使用するvariables一覧
+│   └── s3 # S3バケットを作成
+│       ├── main.tf # S3を作成するのに必要なAWSリソース
+│       ├── outputs.tf # S3で外部から呼び出す時に使用
+│       └── variables.tf # S3ディレクトリ内で使用するvariables一覧
+├── prepare # 共通リソースを作成 環境によらず作成するリソース
+│   ├── backend.tf # tfstateを管理
+│   ├── main.tf #  # 共通リソースで使用するAWSのリソースを構築
+│   ├── provider.tf # terraformの設定
+│   └── variables.tf # 共通環境で使用するvariable一覧
+└── readme.md # ディレクトリ内の説明
 ```
 
 ## 実装方法
@@ -35,11 +40,6 @@
   - main.tf, variables.tf, outputs.tf, locals.tfは空でも作成する
   - readmeで各のmodule内で作成されるリソースとリソースの用途を明記
   - variable, outputにはdescriptionとtypeを追加する
-- developにmergeするときはSquash and mergeを採用
-- mainにmergeするときはmerge commitを採用
-
-## ディレクトリ説明
-随時更新
 
 ## tfsec
 terraformで作成したリソースを、AWSのベストプラクティスの観点からセキュリティを分析するツール https://github.com/aquasecurity/tfsec
