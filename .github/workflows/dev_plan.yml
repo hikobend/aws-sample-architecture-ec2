@@ -32,6 +32,15 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.OIDC_ROLE }}
           aws-region: ap-northeast-1
 
+      - name: setup tfcmt
+        env:
+          TFCMT_VERSION: v3.4.1
+        run: |
+          wget "https://github.com/suzuki-shunsuke/tfcmt/releases/download/${TFCMT_VERSION}/tfcmt_linux_amd64.tar.gz" -O /tmp/tfcmt.tar.gz
+          tar xzf /tmp/tfcmt.tar.gz -C /tmp
+          mv /tmp/tfcmt /usr/local/bin
+          tfcmt --version
+
       - name: Terraform Init
         run: terraform init -upgrade
         working-directory: ./envs/dev
@@ -46,3 +55,9 @@ jobs:
         run: |
           terraform plan -no-color
         working-directory: ./envs/dev
+
+      - name: Terraform Plan cmt
+        run: tfcmt plan -patch -- terraform plan -no-color -input=false
+        working-directory: ./envs/dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
