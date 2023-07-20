@@ -1,0 +1,39 @@
+name: Terraform Lint
+
+on:
+  push:
+    branches:
+      - feature/*
+      - hotfix/*
+  pull_request:
+    branches:
+      - feature/*
+      - hotfix/*
+
+jobs:
+  lint:
+    name: Lint Terraform code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up TFLint
+        run: |
+          wget https://github.com/terraform-linters/tflint/releases/download/v0.46.0/tflint_linux_amd64.zip
+          unzip tflint_linux_amd64.zip
+          sudo mv tflint /usr/local/bin/
+
+      - name: Initialize TFLint
+        run: tflint --init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        working-directory: ./envs/dev
+
+      - name: TFLint version
+        run: tflint --version
+
+      - name: Run TFLint on all .tf files and fail on warnings
+        run: tflint
+        working-directory: ./envs/dev
