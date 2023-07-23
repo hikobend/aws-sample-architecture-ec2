@@ -21,7 +21,7 @@
 │       ├── locals.tf dev環境内の環境変数
 │       ├── main.tf # devで使用するAWSのリソースを構築
 │       ├── provider.tf # terraformの設定
-│       └── variables.tf # dev環境で使用するvariable一覧
+│       └── variables.tf # dev環境で使用するvariable一覧 Actionsから変数を使用
 ├── modules # 呼び出すリソースを作成
 │   ├── dev_tfstate # dev環境でtfstateを管理するリソース
 │   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
