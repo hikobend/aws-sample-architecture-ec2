@@ -64,7 +64,7 @@ jobs:
         working-directory: ./envs/dev
 
       - name: Terraform Plan cmt
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false -var="env=dev"
+        run: tfcmt plan -patch -- terraform plan -no-color -input=false -lock=false -var="env=dev"
         working-directory: ./envs/dev
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
