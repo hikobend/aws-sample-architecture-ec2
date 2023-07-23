@@ -4,3 +4,7 @@ module "dev_tfstate" { # tfstateを管理するリソースを作成 S3, DynamoD
   sse_algorithm = local.dev_tfstate_s3.sse_algorithm
   hash_key      = local.dev_tfstate_dynamodb.hash_key
 }
+
+module "network" {
+  source = "../../modules/network"
+}
