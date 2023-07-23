@@ -35,6 +35,14 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
 
+      - name: terraform refresh
+        run: |
+          terraform refresh -no-color \
+          -var="account_id=${{ secrets.AWS_ACCOUNT }}" \
+          -var="user_name=${{ secrets.USER_NAME }}" \
+          -var="repository_name=${{ secrets.REPOSITORY_NAME }}"
+        working-directory: ./prepare
+
       - name: Terraform Plan
         run: |
           terraform plan -no-color \
