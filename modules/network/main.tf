@@ -8,6 +8,8 @@ module "network" {
   private_subnets      = ["10.0.0.128/26", "10.0.0.192/26"]
   public_subnet_names  = ["public-subnet-1a", "public-subnet-1c"]
   private_subnet_names = ["private-subnet-1a", "private-subnet-1c"]
+  enable_dns_hostnames = true
+  enable_dns_support   = true
 
   vpc_tags                 = { Name = "vpc" }
   public_route_table_tags  = { Name = "route-table-public" }
