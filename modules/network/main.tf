@@ -100,28 +100,6 @@ module "database_sg" {
   ]
 }
 
-variable "common_endpoint_config" {
-  description = "Common configuration for VPC endpoints"
-  type = map(object({
-    service_name = string
-    tag_name     = string
-  }))
-  default = {
-    ssm = {
-      service_name = "com.amazonaws.ap-northeast-1.ssm"
-      tag_name     = "ssm"
-    }
-    ssmmessages = {
-      service_name = "com.amazonaws.ap-northeast-1.ssmmessages"
-      tag_name     = "ssmmessages"
-    }
-    ec2messages = {
-      service_name = "com.amazonaws.ap-northeast-1.ec2messages"
-      tag_name     = "ec2messages"
-    }
-  }
-}
-
 resource "aws_vpc_endpoint" "private_ec2_ssm" {
   for_each = var.common_endpoint_config
 
