@@ -59,6 +59,7 @@ jobs:
         run: |
           terraform plan \
           -no-color \
+          -lock=false \
           -var="env=dev"
         working-directory: ./envs/dev
 

@@ -60,6 +60,7 @@ jobs:
         run: |
           terraform plan \
             -no-color \
+            -lock=false \
             -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
 
@@ -68,5 +69,6 @@ jobs:
           terraform apply \
             -no-color \
             -auto-approve \
+            -lock=false \
             -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
