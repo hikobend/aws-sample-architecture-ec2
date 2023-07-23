@@ -3,9 +3,9 @@ module "network" {
   version = "4.0.0"
 
   cidr                   = var.cidr
-  azs                    = ["ap-northeast-1a", "ap-northeast-1c"]
-  public_subnets         = ["10.0.0.0/26", "10.0.0.64/26"]
-  private_subnets        = ["10.0.0.128/26", "10.0.0.192/26"]
+  azs                    = var.azs
+  public_subnets         = var.public_subnets
+  private_subnets        = var.private_subnets
   public_subnet_names    = ["public-subnet-1a", "public-subnet-1c"]
   private_subnet_names   = ["private-subnet-1a", "private-subnet-1c"]
   enable_dns_hostnames   = true
