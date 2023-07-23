@@ -17,9 +17,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  env: dev
-
 jobs:
   terraform_plan:
     name: Terraform Apply - ${{ inputs.env }}
