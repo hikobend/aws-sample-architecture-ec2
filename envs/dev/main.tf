@@ -1,6 +1,6 @@
-# resource "aws_vpc" "this" {
-#   cidr_block = "10.0.0.0/24"
-# }
+resource "aws_vpc" "this" {
+  cidr_block = "10.0.0.0/26"
+}
 
 module "dev_tfstate" { # tfstateを管理するリソースを作成 S3, DynamoDB
   source        = "../../modules/dev_tfstate"
