@@ -1,3 +1,7 @@
+locals {
+  nat_gateway_names = ["natgateway-1", "natgateway-2"]
+}
+
 module "network" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "4.0.0"
@@ -17,6 +21,6 @@ module "network" {
   public_route_table_tags  = { Name = "route-table-public" }
   private_route_table_tags = { Name = "route-table-private" }
   igw_tags                 = { Name = "internet-gateway" }
-  nat_gateway_tags         = { Name = "nat-gateway" }
+  nat_gateway_tags         = { for index in range(length(local.nat_gateway_names)) : local.nat_gateway_names[index] => { Name = local.nat_gateway_names[index] } }
   nat_eip_tags             = { Name = "elatic-ip" }
 }
