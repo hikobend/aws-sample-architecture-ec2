@@ -17,6 +17,6 @@ module "network" {
   public_route_table_tags  = { Name = "route-table-public" }
   private_route_table_tags = { Name = "route-table-private" }
   igw_tags                 = { Name = "internet-gateway" }
-  nat_gateway_tags         = { Name = "${var.company_name}-nat-gateway" }
-  nat_eip_tags             = { Name = "${var.company_name}-elatic-ip" }
+  nat_gateway_tags         = { Name = "nat-gateway" }
+  nat_eip_tags             = { Name = "elatic-ip" }
 }
