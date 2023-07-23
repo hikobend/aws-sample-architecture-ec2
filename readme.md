@@ -1,20 +1,40 @@
 ## ディレクトリ構成
 ```console
 .
-├── env # 環境
+├── .github
+│   ├── ISSUE_TEMPLATE # Issueテンプレート
+│   │   └── 機能追加.md
+│   ├── PULL_REQUEST_TEMPLATE.md # PullRequestテンプレート
+│   └── workflows
+│       ├── dev_linter.yml # dev環境に対して、Linterをかける
+│       ├── dev_plan.yml # dev環境にPlanを実行するCI
+│       ├── dev_tfsec.yml # dev環境にtfsecを実行するCI
+│       ├── envs_apply.yml # 環境を選択してAWSリソースを作成するCI
+│       ├── prepare_apply.yml # prepareのAWSリソースを作成するCI
+│       └── preprare_plan.yml # prepareにPlanを実行するCI
+├── .gitignore # githubに表示しないファイルを設定
+├── envs # 環境
 │   └── dev # 開発環境
+│       ├── .tfsec # tfsec
+│       │   └── config.yml # tfsecで無視するセキュリティ
+│       ├── backend.tf # tfstateを管理
+│       ├── locals.tf dev環境内の環境変数
 │       ├── main.tf # devで使用するAWSのリソースを構築
 │       ├── provider.tf # terraformの設定
 │       └── variables.tf # dev環境で使用するvariable一覧
 ├── modules # 呼び出すリソースを作成
+│   ├── dev_tfstate # dev環境でtfstateを管理するリソース
+│   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
 │   ├── oidc # OIDC周りのリソース
 │   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
-│   │   ├── outputs.tf # OIDCで外部から呼び出す時に使用
-│   │   └── variables.tf # OIDCディレクトリ内で使用するvariables一覧
-│   └── s3 # S3バケットを作成
-│       ├── main.tf # S3を作成するのに必要なAWSリソース
-│       ├── outputs.tf # S3で外部から呼び出す時に使用
-│       └── variables.tf # S3ディレクトリ内で使用するvariables一覧
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   └── prepare_tfstate
+│       ├── main.tf # prepareでtfstateを作成するのに必要なAWSリソース
+│       ├── outputs.tf # 外部から呼び出す時に使用
+│       └── variables.tf # ディレクトリ内で使用するvariables一覧
 ├── prepare # 共通リソースを作成 環境によらず作成するリソース
 │   ├── backend.tf # tfstateを管理
 │   ├── main.tf #  # 共通リソースで使用するAWSのリソースを構築
