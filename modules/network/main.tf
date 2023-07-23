@@ -13,10 +13,10 @@ module "network" {
   enable_nat_gateway     = true
   one_nat_gateway_per_az = true
 
-  vpc_tags                 = { Name = "vpc" }
-  public_route_table_tags  = { Name = "route-table-public" }
-  private_route_table_tags = { Name = "route-table-private" }
-  igw_tags                 = { Name = "internet-gateway" }
-  nat_gateway_tags         = { Name = "nat-gateway" }
-  nat_eip_tags             = { Name = "elatic-ip" }
+  vpc_tags                 = { Name = "${var.dev}-vpc" }
+  public_route_table_tags  = { Name = "${var.dev}-route-table-public" }
+  private_route_table_tags = { Name = "${var.dev}-route-table-private" }
+  igw_tags                 = { Name = "${var.dev}-internet-gateway" }
+  nat_gateway_tags         = { Name = "${var.dev}-nat-gateway" }
+  nat_eip_tags             = { Name = "${var.dev}-elatic-ip" }
 }

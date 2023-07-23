@@ -59,12 +59,14 @@ jobs:
       - name: Terraform Plan
         run: |
           terraform plan \
-            -no-color
+            -no-color \
+            -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
 
       - name: Terraform Apply
         run: |
           terraform apply \
             -no-color \
-            -auto-approve
+            -auto-approve \
+            -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}

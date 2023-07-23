@@ -21,3 +21,9 @@ variable "private_subnets" {
   type        = list(string)
   default     = ["10.0.0.128/26", "10.0.0.192/26"]
 }
+
+variable "env" {
+  description = "The environment to deploy to"
+  type        = string
+  default     = "dev"
+}

@@ -57,11 +57,13 @@ jobs:
 
       - name: Terraform Plan
         run: |
-          terraform plan -no-color
+          terraform plan \
+          -no-color \
+          -var="env=dev"
         working-directory: ./envs/dev
 
       - name: Terraform Plan cmt
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false
+        run: tfcmt plan -patch -- terraform plan -no-color -input=false -var="env=dev"
         working-directory: ./envs/dev
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
