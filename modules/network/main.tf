@@ -38,11 +38,11 @@ module "alb_sg" {
   ]
 }
 
-module "api_sg" {
+module "application _sg" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "${var.env}-api-sg"
-  description = "api security group"
+  name        = "${var.env}-application-sg"
+  description = "application security group"
   vpc_id      = module.network.vpc_id
 
   ingress_with_source_security_group_id = [
