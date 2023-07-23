@@ -33,7 +33,7 @@ module "alb_sg" {
   egress_with_source_security_group_id = [
     {
       rule                     = "all-all"
-      source_security_group_id = module.api_sg.security_group_id
+      source_security_group_id = module.application_sg.security_group_id
     }
   ]
 }
@@ -95,7 +95,7 @@ module "database_sg" {
       protocol                 = "tcp"
       description              = "MySql Port"
       rule                     = "all-all"
-      source_security_group_id = module.api_sg.security_group_id
+      source_security_group_id = module.application_sg.security_group_id
     }
   ]
 }
