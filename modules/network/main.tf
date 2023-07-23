@@ -30,10 +30,10 @@ module "alb_sg" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
   ingress_rules       = ["https-443-tcp"]
-  egress_with_cidr_blocks = [
+  egress_with_source_security_group_id = [
     {
-      rule        = "all-all"
-      cidr_blocks = "0.0.0.0/0"
+      rule                     = "all-all"
+      source_security_group_id = module.api_sg.this_security_group_id
     }
   ]
 }
@@ -47,19 +47,15 @@ module "api_sg" {
 
   ingress_with_source_security_group_id = [
     {
-      from_port                = 80
-      to_port                  = 80
-      protocol                 = "tcp"
-      description              = "HTTP Port"
       rule                     = "all-all"
-      source_security_group_id = module.alb_sg.security_group_id
+      source_security_group_id = module.alb_sg.this_security_group_id
     }
   ]
 
-  egress_with_cidr_blocks = [
+  egress_with_source_security_group_id = [
     {
-      rule        = "all-all"
-      cidr_blocks = "0.0.0.0/0"
+      rule                     = "all-all"
+      source_security_group_id = module.database_sg.this_security_group_id
     }
   ]
 }
@@ -100,12 +96,6 @@ module "database_sg" {
       description              = "MySql Port"
       rule                     = "all-all"
       source_security_group_id = module.api_sg.security_group_id
-    }
-  ]
-  egress_with_cidr_blocks = [
-    {
-      rule        = "all-all"
-      cidr_blocks = "0.0.0.0/0"
     }
   ]
 }
