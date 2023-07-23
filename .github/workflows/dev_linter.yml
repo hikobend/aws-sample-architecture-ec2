@@ -1,4 +1,4 @@
-name: Terraform Lint
+name: dev環境にLinter
 
 on:
   push:

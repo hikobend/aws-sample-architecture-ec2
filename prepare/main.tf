@@ -5,6 +5,6 @@ module "oidc" {
   repository_name = var.repository_name
 }
 
-module "s3" {
-  source = "../modules/s3"
+module "prepare_tfstate" {
+  source = "../modules/prepare_tfstate"
 }

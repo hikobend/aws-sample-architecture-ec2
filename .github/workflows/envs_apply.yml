@@ -1,4 +1,4 @@
-name: terraform apply
+name: 環境を選択してApply
 
 on:
   workflow_dispatch:
