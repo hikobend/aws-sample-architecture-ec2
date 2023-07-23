@@ -38,7 +38,7 @@ module "alb_sg" {
   ]
 }
 
-module "application _sg" {
+module "application_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
   name        = "${var.env}-application-sg"
