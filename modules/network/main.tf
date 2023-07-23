@@ -11,7 +11,8 @@ module "network" {
   enable_dns_hostnames   = true
   enable_dns_support     = true
   enable_nat_gateway     = true
-  one_nat_gateway_per_az = true
+  single_nat_gateway     = true
+  one_nat_gateway_per_az = false
 
   vpc_tags                 = { Name = "vpc" }
   public_route_table_tags  = { Name = "route-table-public" }
