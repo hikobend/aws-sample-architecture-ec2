@@ -11,4 +11,5 @@ module "network" {
   azs             = local.network.azs
   public_subnets  = local.network.public_subnets
   private_subnets = local.network.private_subnets
+  env             = var.env
 }

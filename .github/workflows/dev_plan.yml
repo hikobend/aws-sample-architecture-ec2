@@ -52,16 +52,19 @@ jobs:
         run: terraform validate -no-color
 
       - name: terraform refresh
-        run: terraform refresh -no-color
+        run: terraform refresh -no-color -lock=false -var="env=dev"
         working-directory: ./envs/dev
 
       - name: Terraform Plan
         run: |
-          terraform plan -no-color
+          terraform plan \
+          -no-color \
+          -lock=false \
+          -var="env=dev"
         working-directory: ./envs/dev
 
       - name: Terraform Plan cmt
-        run: tfcmt plan -patch -- terraform plan -no-color -input=false
+        run: tfcmt plan -patch -- terraform plan -no-color -input=false -lock=false -var="env=dev"
         working-directory: ./envs/dev
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}

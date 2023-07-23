@@ -53,18 +53,22 @@ jobs:
         run: terraform validate -no-color
 
       - name: terraform refresh
-        run: terraform refresh -no-color
+        run: terraform refresh -no-color -lock=false -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
 
       - name: Terraform Plan
         run: |
           terraform plan \
-            -no-color
+            -no-color \
+            -lock=false \
+            -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
 
       - name: Terraform Apply
         run: |
           terraform apply \
             -no-color \
-            -auto-approve
+            -auto-approve \
+            -lock=false \
+            -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
