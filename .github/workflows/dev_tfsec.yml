@@ -1,0 +1,43 @@
+name: dev環境にtfsec
+
+on:
+  push:
+    branches:
+      - feature/*
+      - hotfix/*
+
+jobs:
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.19.2
+
+    - name: Install tfsec
+      run: go install github.com/aquasecurity/tfsec/cmd/tfsec@v1.28.1
+
+    - name: Install jq
+      run: sudo apt-get install jq
+
+    - name: Show Result tfsec
+      run: tfsec ./envs/dev || true
+
+    - name: Run tfsec
+      run: tfsec ./envs/dev --format json > tfsec_output.json || true
+
+    - name: Check tfsec results
+      run: |
+        critical_count=$(jq '[.results[] | select(.severity == "CRITICAL")] | length' tfsec_output.json)
+        high_count=$(jq '[.results[] | select(.severity == "HIGH")] | length' tfsec_output.json)
+        if [ $critical_count -eq 0 ] && [ $high_count -eq 0 ]; then
+          echo "No critical or high findings, CI passes."
+          exit 0
+        else
+          echo "Critical or high findings detected, CI fails."
+          exit 1
+        fi
