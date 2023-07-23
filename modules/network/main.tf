@@ -99,3 +99,35 @@ module "database_sg" {
     }
   ]
 }
+
+resource "aws_vpc_endpoint" "private_ec2_ssm" {
+  for_each = local.common_endpoint_config
+
+  vpc_id              = module.network.vpc_id
+  service_name        = each.value.service_name
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  security_group_ids  = [module.ssm_sg.security_group_id]
+  subnet_ids          = [module.network.private_subnets[0], module.network.private_subnets[1]]
+
+  tags = {
+    Name = "${var.env}-${each.value.tag_name}",
+  }
+}
+
+locals {
+  common_endpoint_config = {
+    ssm = {
+      service_name = "com.amazonaws.ap-northeast-1.ssm"
+      tag_name     = "ssm"
+    }
+    ssmmessages = {
+      service_name = "com.amazonaws.ap-northeast-1.ssmmessages"
+      tag_name     = "ssmmessages"
+    }
+    ec2messages = {
+      service_name = "com.amazonaws.ap-northeast-1.ec2messages"
+      tag_name     = "ec2messages"
+    }
+  }
+}
