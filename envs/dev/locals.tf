@@ -6,4 +6,7 @@ locals {
   dev_tfstate_dynamodb = {
     hash_key = "LockID"
   }
+  network = {
+    vpc_cidr = "10.0.0.0/24"
+  }
 }

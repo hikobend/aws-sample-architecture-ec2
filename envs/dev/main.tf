@@ -6,5 +6,6 @@ module "dev_tfstate" { # tfstateを管理するリソースを作成 S3, DynamoD
 }
 
 module "network" {
-  source = "../../modules/network"
+  source   = "../../modules/network"
+  vpc_cidr = local.network.vpc_cidr
 }
