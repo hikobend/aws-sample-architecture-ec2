@@ -20,3 +20,92 @@ module "network" {
   nat_gateway_tags         = { Name = "${var.env}-nat-gateway" }
   nat_eip_tags             = { Name = "${var.env}-elatic-ip" }
 }
+
+module "alb_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "${var.env}-alb-sg"
+  description = "ALB security group"
+  vpc_id      = module.network.vpc_id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["https-443-tcp"]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
+
+# module "api_sg" {
+#   source = "terraform-aws-modules/security-group/aws"
+
+#   name        = "${var.env}-api-sg"
+#   description = "api security group"
+#   vpc_id      = var.vpc_id
+
+#   ingress_with_source_security_group_id = [
+#     {
+#       from_port                = 80
+#       to_port                  = 80
+#       protocol                 = "tcp"
+#       description              = "Nginx Port"
+#       rule                     = "all-all"
+#       source_security_group_id = module.alb_sg.security_group_id
+#     }
+#   ]
+
+#   egress_with_cidr_blocks = [
+#     {
+#       rule        = "all-all"
+#       cidr_blocks = "0.0.0.0/0"
+#     }
+#   ]
+# }
+
+# module "ssm_sg" {
+#   source = "terraform-aws-modules/security-group/aws"
+
+#   name        = "${var.env}-ssm-sg"
+#   description = "ssm security group"
+#   vpc_id      = var.vpc_id
+
+#   ingress_with_cidr_blocks = [
+#     {
+#       rule        = "https-443-tcp"
+#       cidr_blocks = var.vpc_cidr
+#     },
+#   ]
+
+#   egress_with_cidr_blocks = [
+#     {
+#       rule        = "all-all"
+#       cidr_blocks = "0.0.0.0/0"
+#     }
+#   ]
+# }
+
+# module "database_sg" {
+#   source = "terraform-aws-modules/security-group/aws"
+
+#   name        = "${var.env}-database-sg"
+#   description = "database security group"
+#   vpc_id      = var.vpc_id
+#   ingress_with_source_security_group_id = [
+#     {
+#       from_port                = 3306
+#       to_port                  = 3306
+#       protocol                 = "tcp"
+#       description              = "MySql Port"
+#       rule                     = "all-all"
+#       source_security_group_id = module.api_sg.security_group_id
+#     }
+#   ]
+#   egress_with_cidr_blocks = [
+#     {
+#       rule        = "all-all"
+#       cidr_blocks = "0.0.0.0/0"
+#     }
+#   ]
+# }
