@@ -38,74 +38,74 @@ module "alb_sg" {
   ]
 }
 
-# module "api_sg" {
-#   source = "terraform-aws-modules/security-group/aws"
+module "api_sg" {
+  source = "terraform-aws-modules/security-group/aws"
 
-#   name        = "${var.env}-api-sg"
-#   description = "api security group"
-#   vpc_id      = var.vpc_id
+  name        = "${var.env}-api-sg"
+  description = "api security group"
+  vpc_id      = module.network.vpc_id
 
-#   ingress_with_source_security_group_id = [
-#     {
-#       from_port                = 80
-#       to_port                  = 80
-#       protocol                 = "tcp"
-#       description              = "Nginx Port"
-#       rule                     = "all-all"
-#       source_security_group_id = module.alb_sg.security_group_id
-#     }
-#   ]
+  ingress_with_source_security_group_id = [
+    {
+      from_port                = 80
+      to_port                  = 80
+      protocol                 = "tcp"
+      description              = "HTTP Port"
+      rule                     = "all-all"
+      source_security_group_id = module.alb_sg.security_group_id
+    }
+  ]
 
-#   egress_with_cidr_blocks = [
-#     {
-#       rule        = "all-all"
-#       cidr_blocks = "0.0.0.0/0"
-#     }
-#   ]
-# }
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
 
-# module "ssm_sg" {
-#   source = "terraform-aws-modules/security-group/aws"
+module "ssm_sg" {
+  source = "terraform-aws-modules/security-group/aws"
 
-#   name        = "${var.env}-ssm-sg"
-#   description = "ssm security group"
-#   vpc_id      = var.vpc_id
+  name        = "${var.env}-ssm-sg"
+  description = "ssm security group"
+  vpc_id      = module.network.vpc_id
 
-#   ingress_with_cidr_blocks = [
-#     {
-#       rule        = "https-443-tcp"
-#       cidr_blocks = var.vpc_cidr
-#     },
-#   ]
+  ingress_with_cidr_blocks = [
+    {
+      rule        = "https-443-tcp"
+      cidr_blocks = module.network.vpc_cidr_block
+    },
+  ]
 
-#   egress_with_cidr_blocks = [
-#     {
-#       rule        = "all-all"
-#       cidr_blocks = "0.0.0.0/0"
-#     }
-#   ]
-# }
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
 
-# module "database_sg" {
-#   source = "terraform-aws-modules/security-group/aws"
+module "database_sg" {
+  source = "terraform-aws-modules/security-group/aws"
 
-#   name        = "${var.env}-database-sg"
-#   description = "database security group"
-#   vpc_id      = var.vpc_id
-#   ingress_with_source_security_group_id = [
-#     {
-#       from_port                = 3306
-#       to_port                  = 3306
-#       protocol                 = "tcp"
-#       description              = "MySql Port"
-#       rule                     = "all-all"
-#       source_security_group_id = module.api_sg.security_group_id
-#     }
-#   ]
-#   egress_with_cidr_blocks = [
-#     {
-#       rule        = "all-all"
-#       cidr_blocks = "0.0.0.0/0"
-#     }
-#   ]
-# }
+  name        = "${var.env}-database-sg"
+  description = "database security group"
+  vpc_id      = module.network.vpc_id
+  ingress_with_source_security_group_id = [
+    {
+      from_port                = 3306
+      to_port                  = 3306
+      protocol                 = "tcp"
+      description              = "MySql Port"
+      rule                     = "all-all"
+      source_security_group_id = module.api_sg.security_group_id
+    }
+  ]
+  egress_with_cidr_blocks = [
+    {
+      rule        = "all-all"
+      cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+}
