@@ -35,6 +35,10 @@ jobs:
       - name: Terraform Validate
         run: terraform validate -no-color
 
+      - name: terraform refresh
+        run: terraform refresh -no-color
+        working-directory: ./prepare
+
       - name: Terraform Plan
         run: |
           terraform plan -no-color \
