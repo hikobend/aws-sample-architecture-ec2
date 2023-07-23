@@ -1,0 +1,69 @@
+name: terraform apply
+
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'select dev or stg or prd'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - stg
+          - prd
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  env: dev
+
+jobs:
+  terraform_plan:
+    name: Terraform Apply - ${{ inputs.env }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check inputs
+        if: inputs.env != 'dev'
+        run: |
+          echo "まだ./envs/${{ inputs.env }}は実装完了していません"
+          exit 1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.9
+
+      - name: AWS OIDC credential
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.OIDC_ROLE }}
+          aws-region: ap-northeast-1
+
+      - name: Terraform Init
+        run: terraform init -upgrade
+        working-directory: ./envs/${{ github.event.inputs.env }}
+
+      - name: Terraform fmt
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        run: |
+          terraform plan \
+            -no-color
+        working-directory: ./envs/${{ github.event.inputs.env }}
+
+      - name: Terraform Apply
+        run: |
+          terraform apply \
+            -no-color \
+            -auto-approve
+        working-directory: ./envs/${{ github.event.inputs.env }}
