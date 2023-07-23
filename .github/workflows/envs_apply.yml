@@ -53,7 +53,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: terraform refresh
-        run: terraform refresh -no-color -lock=false
+        run: terraform refresh -no-color -lock=false -var="env=${{ github.event.inputs.env }}"
         working-directory: ./envs/${{ github.event.inputs.env }}
 
       - name: Terraform Plan
