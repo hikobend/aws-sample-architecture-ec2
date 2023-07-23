@@ -52,7 +52,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: terraform refresh
-        run: terraform refresh -no-color
+        run: terraform refresh -no-color -lock=false
         working-directory: ./envs/dev
 
       - name: Terraform Plan
