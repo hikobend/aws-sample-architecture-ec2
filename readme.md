@@ -1,3 +1,10 @@
+## 作成するAWSリソース
+![EC2アーキテクチャ](architecture/ec2.png)
+
+参考文献
+- [AWS ソリューション構成例 - 動的 Web サイト](https://aws.amazon.com/jp/cdp/midscale-webservice/)
+
+
 ## ディレクトリ構成
 ```console
 .
