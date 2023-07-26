@@ -27,6 +27,10 @@
 │   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   ├── network # networkを管理するディレクトリ
+│   │   ├── main.tf # network環境を作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariable一覧
 │   ├── oidc # OIDC周りのリソース
 │   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
