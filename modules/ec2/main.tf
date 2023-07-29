@@ -38,6 +38,32 @@ module "alb" {
   ]
 }
 
+module "ec2_instance_1a" {
+  source = "terraform-aws-modules/ec2-instance/aws"
+
+  name                   = "${var.env}-ec2-instance-1a"
+  instance_type          = "t2.micro"
+  ami                    = "ami-0329eac6c5240c99d"
+  monitoring             = true
+  vpc_security_group_ids = [var.application_sg, var.ssm_sg]
+  subnet_id              = var.private_subnet_1a_id
+  availability_zone      = var.availability_zone_1a
+  # iam_instance_profile   = var.EC2_enable_SSM_connect_role
+  # user_data = local.user_data
+  metadata_options = {
+    http_tokens = "required"
+  }
+
+  root_block_device = [
+    { encrypted = true }
+  ]
+
+  tags = {
+    Name = "${var.env}-ec2-instance-1a"
+  }
+}
+
+
 module "alb_access_log_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
   bucket = "${var.env}-alb-access-log-bucket-s3"

@@ -15,10 +15,14 @@ module "network" {
 }
 
 module "ec2" {
-  source              = "../../modules/ec2"
-  vpc_id              = module.network.vpc_id
-  public_subnet_1a_id = module.network.public_subnet_1a_id
-  public_subnet_1c_id = module.network.public_subnet_1c_id
-  alb_sg              = module.network.alb_sg
-  env                 = var.env
+  source               = "../../modules/ec2"
+  vpc_id               = module.network.vpc_id
+  public_subnet_1a_id  = module.network.public_subnet_1a_id
+  public_subnet_1c_id  = module.network.public_subnet_1c_id
+  private_subnet_1a_id = module.network.private_subnet_1a_id
+  availability_zone_1a = module.network.availability_zone_1a
+  alb_sg               = module.network.alb_sg
+  application_sg       = module.network.application_sg
+  ssm_sg               = module.network.ssm_sg
+  env                  = var.env
 }
