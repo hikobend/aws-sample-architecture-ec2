@@ -47,7 +47,7 @@ module "ec2_instance_1a" {
   vpc_security_group_ids = [var.application_sg, var.ssm_sg]
   subnet_id              = var.private_subnet_1a_id
   availability_zone      = var.availability_zone_1a
-  iam_instance_profile   = aws_iam_role.EC2_enable_SSM_connect_role.arn
+  iam_instance_profile   = aws_iam_instance_profile.EC2_enable_SSM_connect_instance_profile.arn
   # user_data = local.user_data
   metadata_options = {
     http_tokens = "required"
@@ -61,7 +61,6 @@ module "ec2_instance_1a" {
     Name = "${var.env}-ec2-instance-1a"
   }
 }
-
 
 module "alb_access_log_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
@@ -110,4 +109,9 @@ resource "aws_iam_role" "EC2_enable_SSM_connect_role" {
       }
     ]
   })
+}
+
+resource "aws_iam_instance_profile" "EC2_enable_SSM_connect_instance_profile" {
+  name = "${var.env}-EC2-enable-SSM-connect-instance-profile"
+  role = aws_iam_role.EC2_enable_SSM_connect_role.name
 }
