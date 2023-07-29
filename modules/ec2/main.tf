@@ -47,7 +47,7 @@ module "ec2_instance_1a" {
   vpc_security_group_ids = [var.application_sg, var.ssm_sg]
   subnet_id              = var.private_subnet_1a_id
   availability_zone      = var.availability_zone_1a
-  iam_instance_profile   = aws_iam_instance_profile.EC2_enable_SSM_connect_instance_profile.arn
+  iam_instance_profile   = aws_iam_instance_profile.EC2_enable_SSM_connect_instance_profile.name
   # user_data = local.user_data
   metadata_options = {
     http_tokens = "required"
