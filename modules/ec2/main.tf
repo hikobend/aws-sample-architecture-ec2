@@ -140,6 +140,73 @@ resource "aws_iam_role" "EC2_enable_SSM_connect_role" {
   })
 }
 
+module "EC2_enable_SSM_connect_policy" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-policy"
+
+  name        = "${var.env}-EC2-enable-SSM-connect"
+  path        = "/"
+  description = "${var.env}-EC2-enable-SSM-connect"
+
+  policy = <<EOF
+{
+  "Version" : "2012-10-17",
+  "Statement" : [
+    {
+      "Effect" : "Allow",
+      "Action" : [
+        "ssm:DescribeAssociation",
+        "ssm:GetDeployablePatchSnapshotForInstance",
+        "ssm:GetDocument",
+        "ssm:DescribeDocument",
+        "ssm:GetManifest",
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:ListAssociations",
+        "ssm:ListInstanceAssociations",
+        "ssm:PutInventory",
+        "ssm:PutComplianceItems",
+        "ssm:PutConfigurePackageResult",
+        "ssm:UpdateAssociationStatus",
+        "ssm:UpdateInstanceAssociationStatus",
+        "ssm:UpdateInstanceInformation",
+        "ssm:SendCommand"
+      ],
+      "Resource" : "*"
+    },
+    {
+      "Effect" : "Allow",
+      "Action" : [
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource" : "*"
+    },
+    {
+      "Effect" : "Allow",
+      "Action" : [
+        "ec2messages:AcknowledgeMessage",
+        "ec2messages:DeleteMessage",
+        "ec2messages:FailMessage",
+        "ec2messages:GetEndpoint",
+        "ec2messages:GetMessages",
+        "ec2messages:SendReply",
+        "ec2:DescribeInstances",
+        "s3:GetObject"
+      ],
+      "Resource" : "*"
+    }
+  ]
+}
+  EOF
+}
+
+resource "aws_iam_role_policy_attachment" "EC2_enable_SSM_connect_role_policy_attachment" {
+  role       = aws_iam_role.EC2_enable_SSM_connect_role.name
+  policy_arn = module.EC2_enable_SSM_connect_policy.arn
+}
+
 resource "aws_iam_instance_profile" "EC2_enable_SSM_connect_instance_profile" {
   name = "${var.env}-EC2-enable-SSM-connect-instance-profile"
   role = aws_iam_role.EC2_enable_SSM_connect_role.name
