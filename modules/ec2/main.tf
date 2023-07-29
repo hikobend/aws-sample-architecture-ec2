@@ -20,13 +20,10 @@ module "alb" {
       backend_protocol = "HTTP"
       backend_port     = 80
       target_type      = "instance"
-
-      # targets = [
-      #   for ec2_instance_1a_id in var.ec2_instance_1a_ids : {
-      #     target_id = ec2_instance_1a_id
-      #     port      = var.http_port
-      #   }
-      # ]
+      targets = {
+        target_id = module.ec2_instance_1a.id
+        port      = 80
+      }
     }
   ]
   http_tcp_listeners = [
