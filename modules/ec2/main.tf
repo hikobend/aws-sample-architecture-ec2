@@ -21,8 +21,10 @@ module "alb" {
       backend_port     = 80
       target_type      = "instance"
       targets = {
-        target_id = module.ec2_instance_1a.id
-        port      = 80
+        my_target = {
+          target_id = module.ec2_instance_1a.id
+          port      = 80
+        }
       }
     }
   ]
