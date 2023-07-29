@@ -50,6 +50,14 @@ module "alb_access_log_bucket" {
   object_ownership               = "ObjectWriter"
   attach_elb_log_delivery_policy = true
 
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
   tags = {
     name = "${var.env}-alb-access-log-bucket-s3"
   }

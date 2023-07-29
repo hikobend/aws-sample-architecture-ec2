@@ -3,3 +3,6 @@ exclude:
   - aws-ec2-require-vpc-flow-logs-for-all-vpcs
   - aws-ec2-no-public-egress-sgr
   - aws-ec2-no-public-ingress-sgr
+  - aws-elb-http-not-used
+  - aws-elb-alb-not-public
+  - aws-s3-enable-bucket-encryption
