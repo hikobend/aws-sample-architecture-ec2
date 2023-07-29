@@ -29,7 +29,7 @@ module "alb_sg" {
   vpc_id      = module.network.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["https-443-tcp"]
+  ingress_rules       = ["https-443-tcp", "http-80-tcp"]
   egress_with_source_security_group_id = [
     {
       rule                     = "all-all"

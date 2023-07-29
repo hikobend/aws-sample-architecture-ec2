@@ -13,3 +13,23 @@ module "network" {
   private_subnets = local.network.private_subnets
   env             = var.env
 }
+
+module "ec2" {
+  source                    = "../../modules/ec2"
+  user_data                 = local.ec2.user_data
+  vpc_id                    = module.network.vpc_id
+  public_subnet_1a_id       = module.network.public_subnet_1a_id
+  public_subnet_1c_id       = module.network.public_subnet_1c_id
+  private_subnet_1a_id      = module.network.private_subnet_1a_id
+  private_subnet_1c_id      = module.network.private_subnet_1c_id
+  availability_zone_1a      = module.network.availability_zone_1a
+  availability_zone_1c      = module.network.availability_zone_1c
+  alb_sg                    = module.network.alb_sg
+  application_sg            = module.network.application_sg
+  ssm_sg                    = module.network.ssm_sg
+  target_type               = local.alb.target_type
+  instance_type             = local.ec2.instance_type
+  ami                       = local.ec2.ami
+  alb_access_log_bucket_acl = local.s3.alb_access_log_bucket_acl
+  env                       = var.env
+}
