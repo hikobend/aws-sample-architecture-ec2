@@ -5,3 +5,4 @@ exclude:
   - aws-ec2-no-public-ingress-sgr
   - aws-elb-http-not-used
   - aws-elb-alb-not-public
+  - aws-iam-no-policy-wildcards
