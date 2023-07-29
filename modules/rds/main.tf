@@ -18,12 +18,12 @@ module "db" {
   monitoring_role_name   = "MyRDSMonitoringRole"
   create_monitoring_role = true
   create_db_subnet_group = true
-  db_subnet_group_name   = "${var.env}-subnet-group" // Add this line
+  db_subnet_group_name   = "${var.env}-subnet-group"
   subnet_ids             = [var.private_subnet_1a_id, var.private_subnet_1c_id]
   family                 = "mysql5.7"
   major_engine_version   = "5.7"
   deletion_protection    = true
-  parameter_group_name   = "${var.env}-param-group" // Add this line
+  parameter_group_name   = "${var.env}-parameter-group-name"
   parameters = [
     {
       name  = "character_set_client"
