@@ -13,3 +13,12 @@ module "network" {
   private_subnets = local.network.private_subnets
   env             = var.env
 }
+
+module "ec2" {
+  source              = "../../modules/ec2"
+  vpc_id              = module.network.vpc_id
+  public_subnet_1a_id = module.network.public_subnet_1a_id
+  public_subnet_1c_id = module.network.public_subnet_1c_id
+  alb_sg              = module.network.alb_sg
+  env                 = var.env
+}
