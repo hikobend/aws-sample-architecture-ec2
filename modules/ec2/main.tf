@@ -171,7 +171,7 @@ module "EC2_enable_SSM_connect_policy" {
         "ssm:UpdateInstanceInformation",
         "ssm:SendCommand"
       ],
-      "Resource" : "*"
+      "Resource" : "arn:aws:ec2:${data.aws_ssm_parameter.region.value}:${data.aws_ssm_parameter.account_id.value}:instance/*"
     },
     {
       "Effect" : "Allow",
@@ -210,4 +210,12 @@ resource "aws_iam_role_policy_attachment" "EC2_enable_SSM_connect_role_policy_at
 resource "aws_iam_instance_profile" "EC2_enable_SSM_connect_instance_profile" {
   name = "${var.env}-EC2-enable-SSM-connect-instance-profile"
   role = aws_iam_role.EC2_enable_SSM_connect_role.name
+}
+
+data "aws_ssm_parameter" "account_id" {
+  name = "account-id"
+}
+
+data "aws_ssm_parameter" "region" {
+  name = "region"
 }
