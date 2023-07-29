@@ -16,6 +16,7 @@ module "network" {
 
 module "ec2" {
   source               = "../../modules/ec2"
+  user_data            = local.ec2.user_data
   vpc_id               = module.network.vpc_id
   public_subnet_1a_id  = module.network.public_subnet_1a_id
   public_subnet_1c_id  = module.network.public_subnet_1c_id
