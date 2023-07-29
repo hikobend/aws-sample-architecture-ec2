@@ -7,10 +7,9 @@ module "db" {
   engine_version    = "5.7"
   instance_class    = "db.t2.micro"
   allocated_storage = 5
-
-  db_name  = "${var.env}-db"
-  username = "user"
-  port     = "3306"
+  db_name           = "${var.env}-db"
+  username          = "user"
+  port              = "3306"
 
   vpc_security_group_ids = [var.database_sg]
   maintenance_window     = "Mon:00:00-Mon:03:00"
@@ -19,11 +18,12 @@ module "db" {
   monitoring_role_name   = "MyRDSMonitoringRole"
   create_monitoring_role = true
   create_db_subnet_group = true
+  db_subnet_group_name   = "${var.env}-subnet-group" // Add this line
   subnet_ids             = [var.private_subnet_1a_id, var.private_subnet_1c_id]
   family                 = "mysql5.7"
   major_engine_version   = "5.7"
   deletion_protection    = true
-
+  parameter_group_name   = "${var.env}-param-group" // Add this line
   parameters = [
     {
       name  = "character_set_client"
