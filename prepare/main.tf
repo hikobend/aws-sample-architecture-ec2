@@ -8,3 +8,7 @@ module "oidc" {
 module "prepare_tfstate" {
   source = "../modules/prepare_tfstate"
 }
+
+module "parameter_store" {
+  source = "../modules/parameter_store"
+}
