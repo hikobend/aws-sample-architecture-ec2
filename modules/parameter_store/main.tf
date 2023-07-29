@@ -1,7 +1,7 @@
-module "aws_account" {
+module "account-id" {
   source = "terraform-aws-modules/ssm-parameter/aws"
 
-  name                 = "aws_account"
+  name                 = "account-id"
   value                = "change me"
   ignore_value_changes = true
   secure_type          = true
