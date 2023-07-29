@@ -23,8 +23,18 @@ variable "private_subnet_1a_id" {
   type        = string
 }
 
+variable "private_subnet_1c_id" {
+  description = "The ID of the private subnet in the second AZ"
+  type        = string
+}
+
 variable "availability_zone_1a" {
   description = "The availability zone of the first AZ"
+  type        = string
+}
+
+variable "availability_zone_1c" {
+  description = "The availability zone of the second AZ"
   type        = string
 }
 

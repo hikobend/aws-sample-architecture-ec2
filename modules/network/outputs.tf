@@ -18,9 +18,19 @@ output "private_subnet_1a_id" {
   value       = module.network.private_subnets[0]
 }
 
+output "private_subnet_1c_id" {
+  description = "The ID of the private subnet in the second AZ"
+  value       = module.network.private_subnets[1]
+}
+
 output "availability_zone_1a" {
   description = "The availability zone of the first AZ"
   value       = module.network.azs[0]
+}
+
+output "availability_zone_1c" {
+  description = "The availability zone of the second AZ"
+  value       = module.network.azs[1]
 }
 
 output "alb_sg" {
