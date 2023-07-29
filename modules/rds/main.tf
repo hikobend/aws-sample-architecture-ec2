@@ -7,7 +7,7 @@ module "db" {
   engine_version    = "5.7"
   instance_class    = "db.t3.micro"
   allocated_storage = 5
-  db_name           = "db-${var.env}"
+  db_name           = "devdb"
   username          = "user"
   port              = "3306"
 
