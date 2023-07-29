@@ -1,13 +1,13 @@
 module "db" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = "${var.env}-db"
+  identifier = "db-${var.env}"
 
   engine            = "mysql"
   engine_version    = "5.7"
   instance_class    = "db.t3.micro"
   allocated_storage = 5
-  db_name           = "${var.env}-db"
+  db_name           = "db-${var.env}"
   username          = "user"
   port              = "3306"
 
