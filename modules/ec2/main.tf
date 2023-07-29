@@ -25,6 +25,10 @@ module "alb" {
           target_id = module.ec2_instance_1a.id
           port      = 80
         }
+        my_other_target = {
+          target_id = module.ec2_instance_1c.id
+          port      = 80
+        }
       }
     }
   ]
