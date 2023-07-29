@@ -43,6 +43,30 @@ variable "ssm_sg" {
   type        = string
 }
 
+variable "target_type" {
+  description = "The type of target to use"
+  type        = string
+  default     = "instance"
+}
+
+variable "instance_type" {
+  description = "The type of instance to start"
+  type        = string
+  default     = "t2.micro"
+}
+
+variable "ami" {
+  description = "The AMI to use for the instance"
+  type        = string
+  default     = "ami-0329eac6c5240c99d"
+}
+
+variable "alb_access_log_bucket_acl" {
+  description = "The canned ACL to apply"
+  type        = string
+  default     = "log-delivery-write"
+}
+
 variable "env" {
   description = "The environment to deploy to"
   type        = string

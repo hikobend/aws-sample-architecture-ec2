@@ -19,7 +19,7 @@ module "alb" {
       name             = "${var.env}-tg"
       backend_protocol = "HTTP"
       backend_port     = 80
-      target_type      = "instance"
+      target_type      = var.target_type
       targets = {
         my_target = {
           target_id = module.ec2_instance_1a.id
@@ -41,8 +41,8 @@ module "ec2_instance_1a" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
   name                   = "${var.env}-ec2-instance-1a"
-  instance_type          = "t2.micro"
-  ami                    = "ami-0329eac6c5240c99d"
+  instance_type          = var.instance_type
+  ami                    = var.ami
   monitoring             = true
   vpc_security_group_ids = [var.application_sg, var.ssm_sg]
   subnet_id              = var.private_subnet_1a_id
@@ -65,7 +65,7 @@ module "ec2_instance_1a" {
 module "alb_access_log_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
   bucket = "${var.env}-alb-access-log-bucket-s3"
-  acl    = "log-delivery-write"
+  acl    = var.alb_access_log_bucket_acl
 
   # Allow deletion of non-empty bucket
   force_destroy = true
