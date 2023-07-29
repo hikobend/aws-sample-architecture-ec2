@@ -93,7 +93,7 @@ module "alb_access_log_bucket" {
 }
 
 resource "aws_iam_role" "EC2_enable_SSM_connect_role" {
-  name = "${var.company_name}-EC2-enable-SSM-connect-role"
+  name = "${var.env}-EC2-enable-SSM-connect-role"
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
