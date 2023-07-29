@@ -5,9 +5,9 @@ module "db" {
 
   engine            = "mysql"
   engine_version    = "5.7"
-  instance_class    = "db.t3.micro"
+  instance_class    = var.instance_class
   allocated_storage = 5
-  username          = "user"
+  username          = var.username
   port              = "3306"
 
   vpc_security_group_ids = [var.database_sg]

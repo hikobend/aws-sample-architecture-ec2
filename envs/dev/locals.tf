@@ -27,4 +27,8 @@ locals {
   s3 = {
     alb_access_log_bucket_acl = "log-delivery-write"
   }
+  rds = {
+    instance_class = "db.t3.micro"
+    username       = "user"
+  }
 }
