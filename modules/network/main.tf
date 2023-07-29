@@ -6,8 +6,8 @@ module "network" {
   azs                    = var.azs
   public_subnets         = var.public_subnets
   private_subnets        = var.private_subnets
-  public_subnet_names    = ["public-subnet-1a", "public-subnet-1c"]
-  private_subnet_names   = ["private-subnet-1a", "private-subnet-1c"]
+  public_subnet_names    = ["${var.env}-public-subnet-1a", "${var.env}-public-subnet-1c"]
+  private_subnet_names   = ["${var.env}-private-subnet-1a", "${var.env}-private-subnet-1c"]
   enable_dns_hostnames   = true
   enable_dns_support     = true
   enable_nat_gateway     = true

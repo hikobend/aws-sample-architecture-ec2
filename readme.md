@@ -20,6 +20,8 @@
 │       ├── prepare_apply.yml # prepareのAWSリソースを作成するCI
 │       └── preprare_plan.yml # prepareにPlanを実行するCI
 ├── .gitignore # githubに表示しないファイルを設定
+├── architecture ＃ アーキテクチャ図を管理するディレクトリ
+│   └── ec2.png　# 今回作成するアーキテクチャ図
 ├── envs # 環境
 │   └── dev # 開発環境
 │       ├── .tfsec # tfsec
@@ -34,6 +36,10 @@
 │   │   ├── main.tf # dev環境でtfstateを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   ├── ec2 # EC2を管理するディレクトリ
+│   │   ├── main.tf # ec2環境でtfstateを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
 │   ├── network # networkを管理するディレクトリ
 │   │   ├── main.tf # network環境を作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
@@ -42,8 +48,16 @@
 │   │   ├── main.tf # OIDCを作成するのに必要なAWSリソース
 │   │   ├── outputs.tf # 外部から呼び出す時に使用
 │   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
-│   └── prepare_tfstate
-│       ├── main.tf # prepareでtfstateを作成するのに必要なAWSリソース
+│   ├── parameter_store # parameter_storeを管理するディレクトリ
+│   │   ├── main.tf # parameter_storeを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   ├── prepare_tfstate # prepareのtfstateを管理するディレクトリ
+│   │   ├── main.tf # prepareでtfstateを作成するのに必要なAWSリソース
+│   │   ├── outputs.tf # 外部から呼び出す時に使用
+│   │   └── variables.tf # ディレクトリ内で使用するvariables一覧
+│   └── rds # RDSを管理するディレクトリ
+│       ├── main.tf # RDSを作成するのに必要なAWSリソース
 │       ├── outputs.tf # 外部から呼び出す時に使用
 │       └── variables.tf # ディレクトリ内で使用するvariables一覧
 ├── prepare # 共通リソースを作成 環境によらず作成するリソース
