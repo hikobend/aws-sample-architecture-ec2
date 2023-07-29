@@ -47,3 +47,8 @@ output "ssm_sg" {
   description = "The ID of the SSM security group"
   value       = module.ssm_sg.security_group_id
 }
+
+output "database_sg" {
+  description = "The ID of the database security group"
+  value       = module.database_sg.security_group_id
+}

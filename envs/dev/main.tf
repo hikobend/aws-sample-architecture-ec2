@@ -33,3 +33,11 @@ module "ec2" {
   alb_access_log_bucket_acl = local.s3.alb_access_log_bucket_acl
   env                       = var.env
 }
+
+module "rds" {
+  source               = "../../modules/rds"
+  database_sg          = module.network.database_sg
+  private_subnet_1a_id = module.network.private_subnet_1a_id
+  private_subnet_1c_id = module.network.private_subnet_1c_id
+  env                  = var.env
+}
